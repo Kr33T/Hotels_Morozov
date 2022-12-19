@@ -91,7 +91,7 @@ namespace Hotels_Morozov.Windows
 
         private void countOfStarsTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!Regex.IsMatch(countOfStarsTB.Text, @"[1-5]") || countOfStarsTB.Text.Length > 1)
+            if (!Regex.IsMatch(countOfStarsTB.Text, @"[0-5]") || countOfStarsTB.Text.Length > 1)
             {
                 if(countOfStarsTB.Text.Length != 0)
                     countOfStarsTB.Text = countOfStarsTB.Text.Substring(0, countOfStarsTB.Text.Length - 1);
