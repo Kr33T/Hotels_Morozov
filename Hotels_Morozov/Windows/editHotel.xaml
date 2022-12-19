@@ -32,7 +32,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Количество звезд: " HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
-            <TextBox Name="countOfStarsTB" Grid.Column="1" Width="280" HorizontalAlignment="Left" FontSize="20" Height="35"/>
+            <TextBox Name="countOfStarsTB" Grid.Column="1" TextChanged="countOfStarsTB_TextChanged" Width="280" HorizontalAlignment="Left" FontSize="20" Height="35"/>
         </Grid>
 
         <Grid Grid.Row="2">

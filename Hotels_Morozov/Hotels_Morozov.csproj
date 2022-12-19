@@ -84,6 +84,9 @@
     <Compile Include="HotelImage.cs">
       <DependentUpon>dbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="HotelOfTour.cs">
+      <DependentUpon>dbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\hotelPage.xaml.cs">
       <DependentUpon>hotelPage.xaml</DependentUpon>
     </Compile>

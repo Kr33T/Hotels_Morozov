@@ -38,13 +38,13 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HotelId" Type="int" Nullable="false" />
-          <Property Name="ImageSource" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ImageSource" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="HotelOfTour">
           <Key>
-            <PropertyRef Name="HotelId" />
-            <PropertyRef Name="TourId" />
+            <PropertyRef Name="hotID" />
           </Key>
+          <Property Name="hotID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HotelId" Type="int" Nullable="false" />
           <Property Name="TourId" Type="int" Nullable="false" />
         </EntityType>
@@ -224,6 +224,7 @@
           <EntitySet Name="Hotel" EntityType="hotels16Model.Hotel" />
           <EntitySet Name="HotelComment" EntityType="hotels16Model.HotelComment" />
           <EntitySet Name="HotelImage" EntityType="hotels16Model.HotelImage" />
+          <EntitySet Name="HotelOfTour" EntityType="hotels16Model.HotelOfTour" />
           <EntitySet Name="Tour" EntityType="hotels16Model.Tour" />
           <EntitySet Name="Type" EntityType="hotels16Model.Type" />
           <AssociationSet Name="FK__Tour__CountryId__6C190EBB" Association="hotels16Model.FK__Tour__CountryId__6C190EBB">
@@ -242,9 +243,13 @@
             <End Role="Hotel" EntitySet="Hotel" />
             <End Role="HotelImage" EntitySet="HotelImage" />
           </AssociationSet>
-          <AssociationSet Name="HotelOfTour" Association="hotels16Model.HotelOfTour">
+          <AssociationSet Name="FK_HotelOfTour_Hotel" Association="hotels16Model.FK_HotelOfTour_Hotel">
             <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="HotelOfTour" EntitySet="HotelOfTour" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HotelOfTour_Tour" Association="hotels16Model.FK_HotelOfTour_Tour">
             <End Role="Tour" EntitySet="Tour" />
+            <End Role="HotelOfTour" EntitySet="HotelOfTour" />
           </AssociationSet>
           <AssociationSet Name="TypeOfTour" Association="hotels16Model.TypeOfTour">
             <End Role="Tour" EntitySet="Tour" />
@@ -272,7 +277,7 @@
           <NavigationProperty Name="Country" Relationship="hotels16Model.FK_Hotel_Country" FromRole="Hotel" ToRole="Country" />
           <NavigationProperty Name="HotelComment" Relationship="hotels16Model.FK_HotelComment_Hotel" FromRole="Hotel" ToRole="HotelComment" />
           <NavigationProperty Name="HotelImage" Relationship="hotels16Model.FK_HotelImage_Hotel" FromRole="Hotel" ToRole="HotelImage" />
-          <NavigationProperty Name="Tour" Relationship="hotels16Model.HotelOfTour" FromRole="Hotel" ToRole="Tour" />
+          <NavigationProperty Name="HotelOfTour" Relationship="hotels16Model.FK_HotelOfTour_Hotel" FromRole="Hotel" ToRole="HotelOfTour" />
         </EntityType>
         <EntityType Name="HotelComment">
           <Key>
@@ -291,8 +296,18 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HotelId" Type="Int32" Nullable="false" />
-          <Property Name="ImageSource" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ImageSource" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Hotel" Relationship="hotels16Model.FK_HotelImage_Hotel" FromRole="HotelImage" ToRole="Hotel" />
+        </EntityType>
+        <EntityType Name="HotelOfTour">
+          <Key>
+            <PropertyRef Name="hotID" />
+          </Key>
+          <Property Name="hotID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HotelId" Type="Int32" Nullable="false" />
+          <Property Name="TourId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Hotel" Relationship="hotels16Model.FK_HotelOfTour_Hotel" FromRole="HotelOfTour" ToRole="Hotel" />
+          <NavigationProperty Name="Tour" Relationship="hotels16Model.FK_HotelOfTour_Tour" FromRole="HotelOfTour" ToRole="Tour" />
         </EntityType>
         <EntityType Name="Tour">
           <Key>
@@ -307,7 +322,7 @@
           <Property Name="IsActual" Type="Boolean" Nullable="false" />
           <Property Name="CountryId" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Country" Relationship="hotels16Model.FK__Tour__CountryId__6C190EBB" FromRole="Tour" ToRole="Country" />
-          <NavigationProperty Name="Hotel" Relationship="hotels16Model.HotelOfTour" FromRole="Tour" ToRole="Hotel" />
+          <NavigationProperty Name="HotelOfTour" Relationship="hotels16Model.FK_HotelOfTour_Tour" FromRole="Tour" ToRole="HotelOfTour" />
           <NavigationProperty Name="Type" Relationship="hotels16Model.TypeOfTour" FromRole="Tour" ToRole="Type" />
         </EntityType>
         <EntityType Name="Type">
@@ -367,9 +382,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="HotelOfTour">
-          <End Type="hotels16Model.Hotel" Role="Hotel" Multiplicity="*" />
-          <End Type="hotels16Model.Tour" Role="Tour" Multiplicity="*" />
+        <Association Name="FK_HotelOfTour_Hotel">
+          <End Type="hotels16Model.Hotel" Role="Hotel" Multiplicity="1" />
+          <End Type="hotels16Model.HotelOfTour" Role="HotelOfTour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HotelOfTour">
+              <PropertyRef Name="HotelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HotelOfTour_Tour">
+          <End Type="hotels16Model.Tour" Role="Tour" Multiplicity="1" />
+          <End Type="hotels16Model.HotelOfTour" Role="HotelOfTour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HotelOfTour">
+              <PropertyRef Name="TourId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="TypeOfTour">
           <End Type="hotels16Model.Tour" Role="Tour" Multiplicity="*" />
@@ -420,6 +455,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HotelOfTour">
+            <EntityTypeMapping TypeName="hotels16Model.HotelOfTour">
+              <MappingFragment StoreEntitySet="HotelOfTour">
+                <ScalarProperty Name="TourId" ColumnName="TourId" />
+                <ScalarProperty Name="HotelId" ColumnName="HotelId" />
+                <ScalarProperty Name="hotID" ColumnName="hotID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Tour">
             <EntityTypeMapping TypeName="hotels16Model.Tour">
               <MappingFragment StoreEntitySet="Tour">
@@ -443,14 +487,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="HotelOfTour" TypeName="hotels16Model.HotelOfTour" StoreEntitySet="HotelOfTour">
-            <EndProperty Name="Tour">
-              <ScalarProperty Name="Id" ColumnName="TourId" />
-            </EndProperty>
-            <EndProperty Name="Hotel">
-              <ScalarProperty Name="Id" ColumnName="HotelId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="TypeOfTour" TypeName="hotels16Model.TypeOfTour" StoreEntitySet="TypeOfTour">
             <EndProperty Name="Type">
               <ScalarProperty Name="Id" ColumnName="TypeId" />

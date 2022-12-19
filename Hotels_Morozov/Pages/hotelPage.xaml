@@ -43,8 +43,8 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="2">
-            <TextBlock Text="Количество записей на странице: "/>
-            <TextBox Width="40" TextChanged="TextBox_TextChanged" Name="pageCountTB" Margin="5 0 0 10"/>
+            <TextBlock Text="Количество записей на странице: " FontFamily="Comic Sans MS" FontSize="14" Margin="10 0 0 0"/>
+            <TextBox Width="40" TextChanged="TextBox_TextChanged" Name="pageCountTB" Margin="5 0 50 0" FontFamily="Comic Sans MS"/>
 
             <TextBlock Name="txtFirst" Uid="firstOne" Text="&lt;&lt;" MouseDown="GoPage_MouseDown" Style="{StaticResource paginatorBtns}"/>
             <TextBlock Name="txtPrev" Uid="prev" Text="&lt;" MouseDown="GoPage_MouseDown" Style="{StaticResource paginatorBtns}"/>

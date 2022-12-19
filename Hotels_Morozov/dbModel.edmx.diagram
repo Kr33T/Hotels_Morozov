@@ -5,17 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8c73a793e0f54b66a828ad89cf8883d7" Name="Diagram1">
-        <EntityTypeShape EntityType="hotels16Model.Country" Width="1.5" PointX="0.75" PointY="4.625" />
-        <EntityTypeShape EntityType="hotels16Model.Hotel" Width="1.5" PointX="3" PointY="4.125" />
-        <EntityTypeShape EntityType="hotels16Model.HotelComment" Width="1.5" PointX="5.25" PointY="5.75" />
-        <EntityTypeShape EntityType="hotels16Model.HotelImage" Width="1.5" PointX="5.25" PointY="3.25" />
-        <EntityTypeShape EntityType="hotels16Model.Tour" Width="1.5" PointX="8.25" PointY="4" />
-        <EntityTypeShape EntityType="hotels16Model.Type" Width="1.5" PointX="10.5" PointY="4.625" />
+        <EntityTypeShape EntityType="hotels16Model.Country" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="hotels16Model.Hotel" Width="1.5" PointX="3" PointY="3" />
+        <EntityTypeShape EntityType="hotels16Model.HotelComment" Width="1.5" PointX="5.25" PointY="4.5" />
+        <EntityTypeShape EntityType="hotels16Model.HotelImage" Width="1.5" PointX="5.25" PointY="2" />
+        <EntityTypeShape EntityType="hotels16Model.HotelOfTour" Width="1.5" PointX="5.25" PointY="7.875" />
+        <EntityTypeShape EntityType="hotels16Model.Tour" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="hotels16Model.Type" Width="1.5" PointX="5.25" PointY="10.875" />
         <AssociationConnector Association="hotels16Model.FK__Tour__CountryId__6C190EBB" />
         <AssociationConnector Association="hotels16Model.FK_Hotel_Country" />
         <AssociationConnector Association="hotels16Model.FK_HotelComment_Hotel" />
         <AssociationConnector Association="hotels16Model.FK_HotelImage_Hotel" />
-        <AssociationConnector Association="hotels16Model.HotelOfTour" />
+        <AssociationConnector Association="hotels16Model.FK_HotelOfTour_Hotel" />
+        <AssociationConnector Association="hotels16Model.FK_HotelOfTour_Tour" />
         <AssociationConnector Association="hotels16Model.TypeOfTour" />
       </Diagram>
     </edmx:Diagrams>

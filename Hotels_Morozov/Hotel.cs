@@ -19,7 +19,7 @@ namespace Hotels_Morozov
         {
             this.HotelComment = new HashSet<HotelComment>();
             this.HotelImage = new HashSet<HotelImage>();
-            this.Tour = new HashSet<Tour>();
+            this.HotelOfTour = new HashSet<HotelOfTour>();
         }
     
         public int Id { get; set; }
@@ -34,6 +34,6 @@ namespace Hotels_Morozov
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HotelImage> HotelImage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tour> Tour { get; set; }
+        public virtual ICollection<HotelOfTour> HotelOfTour { get; set; }
     }
 }

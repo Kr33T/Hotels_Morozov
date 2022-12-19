@@ -12,12 +12,13 @@ namespace Hotels_Morozov
     using System;
     using System.Collections.Generic;
     
-    public partial class HotelImage
+    public partial class HotelOfTour
     {
-        public int Id { get; set; }
+        public int hotID { get; set; }
         public int HotelId { get; set; }
-        public string ImageSource { get; set; }
+        public int TourId { get; set; }
     
         public virtual Hotel Hotel { get; set; }
+        public virtual Tour Tour { get; set; }
     }
 }

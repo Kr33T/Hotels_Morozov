@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -85,6 +86,15 @@ namespace Hotels_Morozov.Windows
             else
             {
                 MessageBox.Show("Заполнены не все поля!", "Ошибка");
+            }
+        }
+
+        private void countOfStarsTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!Regex.IsMatch(countOfStarsTB.Text, @"[1-5]") || countOfStarsTB.Text.Length > 1)
+            {
+                if(countOfStarsTB.Text.Length != 0)
+                    countOfStarsTB.Text = countOfStarsTB.Text.Substring(0, countOfStarsTB.Text.Length - 1);
             }
         }
     }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,7 +30,6 @@ namespace Hotels_Morozov.Pages
             InitializeComponent();
             hotels = DBHelper.hE.Hotel.ToList();
             listOfHotels.ItemsSource = hotels;
-            totalRecordsTB.Text = $"Записей выведено: {hotels.Count}";
             cfp.CountPage = hotels.Count;
             DataContext = cfp;
             try
@@ -40,13 +40,13 @@ namespace Hotels_Morozov.Pages
             {
 
             }
+            refreshTotalRecords();
         }
 
         void refreshDataGrid()
         {
             hotels = DBHelper.hE.Hotel.ToList();
             listOfHotels.ItemsSource = hotels;
-            totalRecordsTB.Text = $"Записей выведено: {hotels.Count}";
             cfp.CountPage = hotels.Count;
             DataContext = cfp;
             try
@@ -60,6 +60,12 @@ namespace Hotels_Morozov.Pages
             cfp.Countlist = hotels.Count;
             listOfHotels.ItemsSource = hotels.Skip(0).Take(cfp.CountPage).ToList();
             cfp.CurrentPage = 1;
+            refreshTotalRecords();
+        }
+
+        void refreshTotalRecords()
+        {
+            totalRecordsTB.Text = $"Записей выведено: {listOfHotels.Items.Count}/{hotels.Count}";
         }
 
         private void updateHotel_Click(object sender, RoutedEventArgs e)
@@ -90,16 +96,47 @@ namespace Hotels_Morozov.Pages
         {
             if (listOfHotels.SelectedItem != null)
             {
-                var res = MessageBox.Show("Вы уверены, что хотите удалить", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (res == MessageBoxResult.Yes)
+                int index = (listOfHotels.SelectedItem as Hotel).Id;
+                Hotel hotel = DBHelper.hE.Hotel.FirstOrDefault(x => x.Id == index);
+                List<HotelOfTour> hot = DBHelper.hE.HotelOfTour.Where(x => x.HotelId == hotel.Id).ToList();
+                List<Tour> tours = new List<Tour>();
+                foreach (var item in hot)
                 {
-                    DBHelper.hE.Hotel.Remove(listOfHotels.SelectedItem as Hotel);
-                    DBHelper.hE.SaveChanges();
-                    refreshDataGrid();
+                    tours.Add(DBHelper.hE.Tour.FirstOrDefault(x => x.Id == item.TourId && x.IsActual));
+                }
+                if (tours.Count == 0)
+                {
+                    var res = MessageBox.Show($"Вы уверены, что хотите удалить {hotel.Name}?", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        foreach (var item in DBHelper.hE.HotelImage)
+                        {
+                            if (item.HotelId == hotel.Id)
+                            {
+                                DBHelper.hE.HotelImage.Remove(item);
+                            }
+                        }
+
+                        foreach (var item in DBHelper.hE.HotelComment)
+                        {
+                            if (item.HotelId == hotel.Id)
+                            {
+                                DBHelper.hE.HotelComment.Remove(item);
+                            }
+                        }
+
+                        DBHelper.hE.Hotel.Remove(listOfHotels.SelectedItem as Hotel);
+                        DBHelper.hE.SaveChanges();
+                        refreshDataGrid();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Удаление отменено!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Удаление отменено!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Отель подходит под актуальный тур, поэтому его нельзя удалить", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
             }
             else
@@ -130,10 +167,16 @@ namespace Hotels_Morozov.Pages
                     break;
             }
             listOfHotels.ItemsSource = hotels.Skip(cfp.CurrentPage * cfp.CountPage - cfp.CountPage).Take(cfp.CountPage).ToList();
+            refreshTotalRecords();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (!Regex.IsMatch(pageCountTB.Text, @"^[0-9]*$"))
+            {
+                if(pageCountTB.Text.Length != 0)
+                    pageCountTB.Text = pageCountTB.Text.Substring(0, pageCountTB.Text.Length - 1);
+            }
             try
             {
                 cfp.CountPage = Convert.ToInt32(pageCountTB.Text);
@@ -145,6 +188,7 @@ namespace Hotels_Morozov.Pages
             cfp.Countlist = hotels.Count;
             listOfHotels.ItemsSource = hotels.Skip(0).Take(cfp.CountPage).ToList();
             cfp.CurrentPage = 1;
+            refreshTotalRecords();
         }
 
         private void listOfHotels_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -154,14 +198,11 @@ namespace Hotels_Morozov.Pages
 
         private void countToursTB_Loaded(object sender, RoutedEventArgs e)
         {
-            int idnex = Convert.ToInt32((sender as TextBlock).Uid);
+            int index = Convert.ToInt32((sender as TextBlock).Uid);
 
-            List<Tour> tours = DBHelper.hE.Tour.ToList();
+            int count = DBHelper.hE.HotelOfTour.Where(x => x.HotelId == index).Count();
 
-            foreach (var item in DBHelper.hE.Tour.Include(x => x.Hotel))
-            {
-
-            }
+            (sender as TextBlock).Text = count.ToString();
         }
     }
 }
