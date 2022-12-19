@@ -19,12 +19,18 @@
         <TextBlock Grid.Row="0" Name="totalRecordsTB" Margin="0 0 15 0" HorizontalAlignment="Right" FontFamily="Comic Sans MS" FontSize="15"/>
 
         <StackPanel Grid.Row="1">
-            <DataGrid Name="listOfHotels" SelectionMode="Single" Height="870" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="19" HorizontalAlignment="Center">
+            <DataGrid SelectionChanged="listOfHotels_SelectionChanged" Name="listOfHotels" SelectionMode="Single" Height="870" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="19" HorizontalAlignment="Center">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Название отеля" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Количество звезд" Binding="{Binding CountOfStars}"/>
                     <DataGridTextColumn Header="Название страны" Binding="{Binding Country.Name}"/>
-                    <DataGridTextColumn Header="Кол-во туров в отель" Binding="{Binding Tour.TicketCount}"/>
+                    <DataGridTemplateColumn Header="Кол-во туров в отель">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Name="countToursTB" Uid="{Binding Id}" Loaded="countToursTB_Loaded"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Редактирование">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

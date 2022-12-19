@@ -32,7 +32,14 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Введите текст для поиска: " FontFamily="Comic Sans MS" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <TextBox Name="searchTB" TextChanged="searchTB_TextChanged" VerticalContentAlignment="Center" Height="45" Width="350" FontSize="25" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBox Name="searchTB" TextChanged="searchTB_TextChanged" VerticalContentAlignment="Center" Height="45" Width="350" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <ComboBox Width="200" Height="45" Name="searchByTB" FontSize="20" VerticalContentAlignment="Center" SelectionChanged="searchByTB_SelectionChanged" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <ComboBoxItem>По названию</ComboBoxItem>
+                        <ComboBoxItem>По описанию</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
             </Grid>
 
             <Grid Grid.Row="1">

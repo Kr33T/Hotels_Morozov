@@ -12,7 +12,8 @@
         <Style x:Key="paginatorBtns" TargetType="TextBlock">
             <Setter Property="Margin" Value="3 0 3 0"/>
             <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Foreground" Value="#D2D2D2"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
         </Style>
     </Application.Resources>
 </Application>

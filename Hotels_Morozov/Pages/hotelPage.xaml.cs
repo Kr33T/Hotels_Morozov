@@ -146,5 +146,22 @@ namespace Hotels_Morozov.Pages
             listOfHotels.ItemsSource = hotels.Skip(0).Take(cfp.CountPage).ToList();
             cfp.CurrentPage = 1;
         }
+
+        private void listOfHotels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void countToursTB_Loaded(object sender, RoutedEventArgs e)
+        {
+            int idnex = Convert.ToInt32((sender as TextBlock).Uid);
+
+            List<Tour> tours = DBHelper.hE.Tour.ToList();
+
+            foreach (var item in DBHelper.hE.Tour.Include(x => x.Hotel))
+            {
+
+            }
+        }
     }
 }

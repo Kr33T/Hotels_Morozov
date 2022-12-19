@@ -37,6 +37,8 @@ namespace Hotels_Morozov.Pages
             typeTourCB.SelectedIndex = 0;
 
             orderByCB.SelectedIndex = 0;
+
+            searchByTB.SelectedIndex = 0;
         }
         private void TextBlock_Loaded(object sender, RoutedEventArgs e)
         {
@@ -92,7 +94,15 @@ namespace Hotels_Morozov.Pages
 
             if (!String.IsNullOrEmpty(searchTB.Text))
             {
-                tours = tours.Where(x => x.Name.ToString().ToLower().Contains(searchTB.Text.ToLower())).ToList();
+                switch(searchByTB.SelectedIndex)
+                {
+                    case 0:
+                        tours = tours.Where(x => x.Name.ToString().ToLower().Contains(searchTB.Text.ToLower())).ToList();
+                        break;
+                    case 1:
+                        tours = tours.Where(x => x.Description.ToString().ToLower().Contains(searchTB.Text.ToLower())).ToList();
+                        break;
+                }
             }
             if ((bool)onlyActualCB.IsChecked)
             {
@@ -152,6 +162,11 @@ namespace Hotels_Morozov.Pages
         private void orderByCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             filter();
+        }
+
+        private void searchByTB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
