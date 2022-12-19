@@ -1,0 +1,30 @@
+﻿<Window x:Class="Hotels_Morozov.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hotels_Morozov"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1026" Width="1208" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8.2*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+
+        <Frame Name="mainFrame" Grid.Row="0" NavigationUIVisibility="Hidden"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Список отелей" Name="openHotelPageBTN" Click="openHotelPageBTN_Click"/>
+
+            <Button Grid.Column="1" Content="Список туров" Name="openToursPageBTN" Click="openToursPageBTN_Click"/>
+
+        </Grid>
+        
+    </Grid>
+</Window>

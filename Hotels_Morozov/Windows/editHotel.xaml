@@ -1,0 +1,61 @@
+﻿<Window x:Class="Hotels_Morozov.Windows.editHotel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hotels_Morozov.Windows"
+        mc:Ignorable="d"
+        Title="editHotel" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.7*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Название отеля: " HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
+            <TextBox Grid.Column="1" Name="hotelNameTB" Width="280" HorizontalAlignment="Left" FontSize="20" Height="35"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Количество звезд: " HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
+            <TextBox Name="countOfStarsTB" Grid.Column="1" Width="280" HorizontalAlignment="Left" FontSize="20" Height="35"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Описание отеля: " HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
+            <TextBox Name="hotelDescriptionTB" TextWrapping="Wrap" Grid.Column="1" Width="280" HorizontalAlignment="Left" FontSize="20" Height="100"/>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Страна: " HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Comic Sans MS" FontSize="20"/>
+            <ComboBox Name="countryCB" Grid.Column="1" Width="280" HorizontalAlignment="Left" FontSize="20" Height="35"/>
+        </Grid>
+
+        <Button Grid.Row="4" Name="editHotelBTN" Click="editHotelBTN_Click"/>
+
+    </Grid>
+</Window>
