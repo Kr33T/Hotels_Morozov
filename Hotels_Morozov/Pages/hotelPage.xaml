@@ -21,13 +21,13 @@
         <StackPanel Grid.Row="1">
             <DataGrid SelectionChanged="listOfHotels_SelectionChanged" Name="listOfHotels" SelectionMode="Single" Height="870" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="19" HorizontalAlignment="Center">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название отеля" Binding="{Binding Name}"/>
-                    <DataGridTextColumn Header="Количество звезд" Binding="{Binding CountOfStars}"/>
-                    <DataGridTextColumn Header="Название страны" Binding="{Binding Country.Name}"/>
+                    <DataGridTextColumn FontFamily="Comic Sans MS" Header="Название отеля" Binding="{Binding Name}"/>
+                    <DataGridTextColumn FontFamily="Comic Sans MS" Header="Количество звезд" Binding="{Binding CountOfStars}"/>
+                    <DataGridTextColumn FontFamily="Comic Sans MS" Header="Название страны" Binding="{Binding Country.Name}"/>
                     <DataGridTemplateColumn Header="Кол-во туров в отель">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Name="countToursTB" Uid="{Binding Id}" Loaded="countToursTB_Loaded"/>
+                                <TextBlock Name="countToursTB"  FontFamily="Comic Sans MS" Uid="{Binding Id}" Loaded="countToursTB_Loaded"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
